@@ -71,20 +71,21 @@
   user-select: none;
 }
 
-/* ---------- Canisters (frame 838×911, centered horizontally,
- *            overlaps the cards row, sticks ~220px ВИЩЕ top карток,
- *            bottom = bottom of cards row ≈ 1411) ---------- */
+/* ---------- Canisters (tight crop, ~3% більше за висоту карток 691px,
+ *            тобто ~712 visual. Aspect 504×552 → frame 650×712.
+ *            Розміщено так, що bottom каністр = bottom карток (1411),
+ *            а верх трошки виступає над top карток (720). ---------- */
 .canisters {
   position: absolute;
-  left: 541px;       /* (1920 - 838) / 2 = 541 — горизонтальний центр */
-  top: 500px;        /* 500 + 911 = 1411 = bottom of cards row */
-  width: 838px;
-  height: 911px;
+  left: 635px;       /* центр приблизно на межі поля/зеленого (x ≈ 960) */
+  top: 699px;        /* 699 + 712 = 1411 = bottom of cards row */
+  width: 650px;
+  height: 712px;
   object-fit: contain;
   object-position: center bottom;
   user-select: none;
   pointer-events: none;
-  filter: drop-shadow(0 28px 48px rgba(0, 0, 0, 0.25));
+  filter: drop-shadow(0 28px 48px rgba(0, 0, 0, 0.28));
   z-index: 5;
 }
 

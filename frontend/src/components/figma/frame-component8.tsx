@@ -51,7 +51,7 @@ const FrameComponent8: React.FC<FrameComponent8Type> = ({ className = "" }) => {
       {/* ===== Canisters (centered, overlapping field + green panel) ===== */}
       <img
         className={styles.canisters}
-        src="/ts_image2.png"
+        src="/ts_canisters.png"
         alt="Каністра 1 л і пляшка 0.5 л біопрепарату Таміс Агро"
         draggable={false}
       />
