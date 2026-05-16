@@ -24,7 +24,7 @@
   position: relative;
   width: 1920px;
   max-width: 100%;
-  height: 1484px;
+  height: 1411px;
   flex-shrink: 0;
   background-color: var(--bg-cream, #F9F7F2);
   overflow: hidden;
@@ -118,8 +118,8 @@
 /* ---------- Description ---------- */
 .description {
   position: absolute;
-  left: 976px;
   right: 120px;
+  width: 446px;
   top: 470px;
   margin: 0;
   z-index: 6;
@@ -133,14 +133,17 @@
   font-weight: 700;
 }
 
-/* ---------- Feature stack on green panel ---------- */
+/* ---------- Feature stack on green panel ----------
+ * Координати з Figma:
+ *   top:   green_top (720) + 107 = 827
+ *   right: 120 від правого краю секції
+ *   width: 446 (фікс. ширина групи з 3-х фічей)
+ */
 .featureStack {
   position: absolute;
-  /* Зелений блок: x 966..1920, y 720..1411.
-     Stack right-anchored всередині нього (з padding-right 120 від краю секції). */
-  left: 1450px;
   right: 120px;
-  top: 800px;
+  width: 446px;
+  top: 827px;
   z-index: 7;
   display: flex;
   flex-direction: column;
