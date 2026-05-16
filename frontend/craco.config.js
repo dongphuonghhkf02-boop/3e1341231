@@ -38,6 +38,46 @@ let webpackConfig = {
     },
     configure: (webpackConfig) => {
 
+      // Allow CSS to reference assets in /public via absolute URLs like url(/file.png).
+      // By default css-loader tries to resolve such URLs as webpack modules and fails.
+      // We instruct css-loader to skip URL resolution for paths starting with "/".
+      try {
+        const oneOfRule = webpackConfig.module.rules.find((r) => Array.isArray(r.oneOf));
+        if (oneOfRule && oneOfRule.oneOf) {
+          oneOfRule.oneOf.forEach((rule) => {
+            if (!rule.use || !Array.isArray(rule.use)) return;
+            rule.use.forEach((u) => {
+              if (
+                u &&
+                typeof u === "object" &&
+                u.loader &&
+                u.loader.includes("css-loader") &&
+                !u.loader.includes("postcss-loader") &&
+                u.options
+              ) {
+                const existingUrl = u.options.url;
+                u.options.url = {
+                  filter: (url /*, resourcePath */) => {
+                    if (typeof url !== "string") return true;
+                    // skip absolute paths and protocol urls — they are resolved by the dev server / browser from /public
+                    if (url.startsWith("/")) return false;
+                    if (/^[a-z]+:\/\//i.test(url)) return false;
+                    if (url.startsWith("//")) return false;
+                    if (url.startsWith("data:")) return false;
+                    if (typeof existingUrl === "object" && typeof existingUrl.filter === "function") {
+                      return existingUrl.filter(url);
+                    }
+                    return true;
+                  },
+                };
+              }
+            });
+          });
+        }
+      } catch (e) {
+        console.warn("[craco] Could not patch css-loader url option:", e && e.message);
+      }
+
       // Add ignored patterns to reduce watched directories
         webpackConfig.watchOptions = {
           ...webpackConfig.watchOptions,

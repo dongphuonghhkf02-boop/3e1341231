@@ -1,0 +1,198 @@
+/* Footer — pixel-perfect from Figma (image 1504×442 → design 1920×564)
+ *
+ * KEY MEASUREMENTS (design px):
+ *   • Block size      : 1920 × 564
+ *   • Padding         : 120 top / 120 left / 120 right / 32 bottom (NOT 120 bottom!)
+ *   • Inner area      : 1680 × 412
+ *
+ *   • Logo asset      : displayed at 366×261, sits in 776-wide left track
+ *                       (logo pill ends at x≈472; gap to col1 = 424)
+ *   • Col1 «Нашим»    : x = 896  → grid track 776..1070  (width 294)
+ *   • Col2 «Адреса»   : x = 1190 → grid track 1070..1399 (width 329)
+ *   • Col3 «Контакти» : x = 1519 → grid track 1399..1800 (width 1fr ≈ 281)
+ *
+ *   • Title baseline    : y ≈ 134
+ *   • Col1 menu items   : 178 / 229 / 283 / 337  (gap 54 baseline-to-baseline)
+ *   • Col2/3 lines      : 178 / 204 / 228         (line-height 26)
+ *   • «Ми в соц. мережах»: y ≈ 385 (col3 area)
+ *   • Social icons      : y ≈ 440
+ *   • Credits row       : y ≈ 525
+ */
+
+.footer {
+  width: 100%;
+  height: 564px;
+  box-sizing: border-box;
+  padding: 120px 120px 32px 120px;
+  background-color: #2c2c27;
+  color: #f9f7f2;
+  font-family: var(--font-golos-text);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* MAIN GRID — logo + 3 info columns at exact Figma X-coords. */
+.mainGrid {
+  display: grid;
+  grid-template-columns: 776px 294px 329px 1fr;
+  gap: 0;
+  align-items: start;
+  flex: 1 1 auto;
+}
+
+/* LOGO column — logo image left-aligned, top-aligned */
+.logoCol {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.logoIcon {
+  width: 366px;
+  height: 261px;
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Generic info column */
+.col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Right-most column — "Контакти" text on top, socials anchored ~y=385 below */
+.colContacts {
+  align-self: stretch;
+  height: 100%;
+}
+
+/* Title — Bold 18 / 700 / 140% / cream */
+.colTitle {
+  margin: 0;
+  font-family: "Golos Text", var(--font-golos-text), sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 140%;
+  color: #f9f7f2;
+  display: block;
+}
+
+/* Body text — 18 / 400 / 140% / cream */
+.colText {
+  font-family: "Golos Text", var(--font-golos-text), sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 140%;
+  color: #f9f7f2;
+  font-style: normal;
+}
+
+/* Menu list (Нашим клієнтам) — baseline 54 design px, achieved via gap 29 + 25 line-height */
+.menuList {
+  list-style: none;
+  padding: 0;
+  margin: 24px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 29px;
+}
+.menuItem {
+  font-family: "Golos Text", var(--font-golos-text), sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 140%;
+  color: #f9f7f2;
+  cursor: pointer;
+  transition: color 0.18s ease;
+}
+.menuItem:hover {
+  color: #b3d217;
+}
+
+/* Address & contacts — first body line 24px under the title */
+address.colText {
+  margin-top: 24px;
+}
+
+/* Social block — title at ~y=385, icons at ~y=440 (design)
+ * Title comes 157px below the contacts text last line (228 + 157 = 385) */
+.socialBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  margin-top: 132px; /* 18px line-height baseline + 157 - 25 ≈ 132 */
+}
+.socialIcons {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.socialLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  text-decoration: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.socialLink:hover {
+  opacity: 0.78;
+  transform: translateY(-2px);
+}
+.socialIcon {
+  width: 32px;
+  height: 32px;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Bottom credits row — fixed 60px above the bottom padding (≈ design y=525) */
+.creditsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: auto;
+  padding-top: 60px;
+  font-size: 14px;
+  line-height: 120%;
+  color: #f9f7f2;
+  opacity: 0.9;
+  flex: 0 0 auto;
+}
+.copyright {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 120%;
+  font-family: "Golos Text", var(--font-golos-text), sans-serif;
+}
+.copyrightIcon {
+  width: 16px;
+  height: 16px;
+  display: block;
+  filter: invert(96%) sepia(6%) saturate(174%) hue-rotate(20deg) brightness(102%) contrast(91%);
+}
+.siteCredit {
+  font-family: "Golos Text", var(--font-golos-text), sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 120%;
+}
+.siteCreditLink {
+  color: inherit;
+  text-decoration: underline;
+  transition: color 0.18s ease;
+}
+.siteCreditLink:hover {
+  color: #b3d217;
+}
