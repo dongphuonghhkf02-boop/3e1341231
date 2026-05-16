@@ -1,17 +1,23 @@
 /* ============================================================
  * Section «Ми не просто виробляємо препарати»
  *
- * Pixel-perfect HTML+CSS реалізація на основі Figma SVG-композиції.
- * Дизайн-канвас 1920×1484.
+ * Pixel-perfect HTML+CSS — координати взяті з Figma:
  *
- * Координати (від лівого верхнього кута секції):
- *   • Heading       : left 120, top 120, right 120
- *   • Description   : left 976, top 470, right 120, max-width 824
- *   • Field photo   : left 0,   top 415, w 981, h 1302
- *   • Green panel   : left 966, top 720, w 954, h 691, bg #ACB14F
- *   • Texture (5%)  : над green panel
- *   • Canisters     : left 477, top 573, w 838, h 911 (overlay)
- *   • Feature stack : right-anchored, поверх зеленого блока
+ *   Section: 1920 × 1604
+ *   ┌────────────────────────────────────────────────────────┐
+ *   │ top:120  HEADING (left 120, right 120)                 │
+ *   │                                  ┌── DESCRIPTION ──┐   │
+ *   │                            top:470 ─ left:976 ─ r:120  │
+ *   │                                                        │
+ *   │             ┌── CANISTERS ──┐                          │
+ *   │             │  838 × 911    │  (overlay: вище зеленого)│
+ *   │             │  left: ~541   │                          │
+ *   │             │  top:  500    │                          │
+ *   │   ┌─────────┴───────────────┴────────┐                 │
+ *   │   │ FIELD 954×691 │ GREEN 954×691    │ top: 720        │
+ *   │   │ left:0        │ left:966         │ bottom: 1411    │
+ *   │   └───────────────┴──────────────────┘                 │
+ *   └────────────────────────────────────────────────────────┘
  * ============================================================ */
 
 .parent {
@@ -28,13 +34,13 @@
   color: var(--text-black, #2C2C27);
 }
 
-/* ---------- Field photo (left) ---------- */
+/* ---------- Field card (left, поруч із зеленим блоком) ---------- */
 .fieldImage {
   position: absolute;
   left: 0;
-  top: 415px;
-  width: 981px;
-  height: 1302px;
+  top: 720px;
+  width: 954px;
+  height: 691px;
   object-fit: cover;
   object-position: center;
   user-select: none;
@@ -65,18 +71,20 @@
   user-select: none;
 }
 
-/* ---------- Canisters (centered, overlapping) ---------- */
+/* ---------- Canisters (frame 838×911, centered horizontally,
+ *            overlaps the cards row, sticks ~220px ВИЩЕ top карток,
+ *            bottom = bottom of cards row ≈ 1411) ---------- */
 .canisters {
   position: absolute;
-  left: 477px;
-  top: 573px;
+  left: 541px;       /* (1920 - 838) / 2 = 541 — горизонтальний центр */
+  top: 500px;        /* 500 + 911 = 1411 = bottom of cards row */
   width: 838px;
   height: 911px;
   object-fit: contain;
-  object-position: center;
+  object-position: center bottom;
   user-select: none;
   pointer-events: none;
-  filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.22));
+  filter: drop-shadow(0 28px 48px rgba(0, 0, 0, 0.25));
   z-index: 5;
 }
 
@@ -90,7 +98,7 @@
   z-index: 6;
   font-size: 82px;
   letter-spacing: -1px;
-  line-height: 120%;          /* = 98.4px */
+  line-height: 120%;
   text-transform: uppercase;
   font-family: inherit;
   color: var(--text-black, #2C2C27);
@@ -117,7 +125,7 @@
   font-family: var(--font-golos-text), "Golos Text", sans-serif;
   font-size: 28px;
   font-weight: 400;
-  line-height: 125%;          /* = 35px */
+  line-height: 125%;
   color: var(--text-black, #2C2C27);
 }
 .description b {
@@ -127,13 +135,11 @@
 /* ---------- Feature stack on green panel ---------- */
 .featureStack {
   position: absolute;
-  /* Right-aligned within the green panel.
-     Green panel spans x=966..1920 (width 954).
-     Feature column padding-right ≈ 120 (від правого краю секції).
-     Width column ≈ 350px (іконка 60 + текст). */
+  /* Зелений блок: x 966..1920, y 720..1411.
+     Stack right-anchored всередині нього (з padding-right 120 від краю секції). */
   left: 1450px;
   right: 120px;
-  top: 880px;
+  top: 800px;
   z-index: 7;
   display: flex;
   flex-direction: column;
@@ -147,7 +153,6 @@
   gap: 8px;
   width: 100%;
 }
-
 .featureRow {
   display: flex;
   align-items: center;
@@ -158,7 +163,6 @@
   height: 60px;
   flex-shrink: 0;
   display: block;
-  /* Іконки у cream-кольорі — у нас вони темні, тому інвертуємо до білого */
   filter: brightness(0) invert(1);
 }
 .featureTitle {
@@ -166,18 +170,18 @@
   font-family: var(--font-commissioner), "Commissioner", sans-serif;
   font-size: 52px;
   font-weight: 600;
-  line-height: 120%;          /* = 62.4px */
+  line-height: 120%;
   letter-spacing: -1px;
   color: var(--text-cream, #F9F7F2);
   white-space: nowrap;
 }
 .featureBody {
   margin: 0;
-  padding-left: 72px;          /* icon 60 + gap 12 */
+  padding-left: 72px;
   font-family: var(--font-golos-text), "Golos Text", sans-serif;
   font-size: 28px;
   font-weight: 400;
-  line-height: 120%;           /* = 33.6px */
+  line-height: 120%;
   color: var(--text-cream, #F9F7F2);
   max-width: 360px;
 }
